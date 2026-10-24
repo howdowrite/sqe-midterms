@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { add } from "./calculator";
+import { add, subtract} from "./calculator";
 describe("Calculator addition", () => {
   it("adds two positive numbers", () => {
     expect(add(2, 3)).toBe(5);
@@ -9,5 +9,17 @@ describe("Calculator addition", () => {
   });
   it("converts input strings to numbers", () => {
     expect(add("10", "5")).toBe(15);
+  });
+});
+
+describe("Calculator subtract", () => {
+  it("subtracts two positive numbers", () => {
+    expect(subtract(2, 3)).toBe(-1);
+  });
+  it("subtracts negative numbers", () => {
+    expect(subtract(-2, -3)).toBe(1);
+  });
+  it("converts input strings to numbers", () => {
+    expect(subtract("10", "5")).toBe(5);
   });
 });
