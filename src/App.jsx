@@ -9,7 +9,7 @@ export default function App() {
     <h1>Midterm Calculator</h1>
     <p>Student: Krystian Genson</p>
     <p>Student: Paolo San Gabriel</p>
-    <p>Application Version: 1.0</p>
+    <p>Application Version: 2.0</p>
     <div>
     <label>
     First number:
