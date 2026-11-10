@@ -3,7 +3,7 @@ pipeline {
     parameters {
       string(name: 'BUILD_NUMBER', description: 'CI build number to deploy')
         choice(name: 'ENVIRONMENT',
-            choices: ['DEV', 'TEST', 'ACC', 'PROD'])
+            choices: ['dev', 'test', 'acc', 'prod'])
     }
   stages {
     stage('Download Artifact') {
