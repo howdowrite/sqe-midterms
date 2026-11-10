@@ -1,0 +1,36 @@
+pipeline {
+  agent any
+    parameters {
+      string(name: 'BUILD_NUMBER', description: 'CI build number to deploy')
+        choice(name: 'ENVIRONMENT',
+            choices: ['DEV', 'TEST', 'ACC', 'PROD'])
+    }
+  stages {
+    stage('Download Artifact') {
+      steps {
+        copyArtifacts(
+            projectName: 'CI-React-App',
+            selector: specific(params.BUILD_NUMBER),
+            filter: 'react-app-*.tar.gz'
+            )
+      }
+    }
+    stage('Prepare Files') {
+      steps {
+        sh 'rm -rf deploy && mkdir deploy'
+          sh 'tar -xzf react-app-BUILD_NUMBER.tar.gz -C deploy'
+      }
+    }
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t react-app-ENVIRONMENT-BUILD_NUMBER deploy'
+      }
+    }
+    stage('Deploy to Docker') {
+      steps {
+        sh 'docker rm -f react-ENVIRONMENT || true'
+          sh 'docker run -d --name react-ENVIRONMENT -p 8080:80 react-app-ENVIRONMENT-BUILD_NUMBER'
+      }
+    }
+  }
+}
